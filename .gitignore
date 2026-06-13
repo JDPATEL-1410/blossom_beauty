@@ -1,0 +1,20 @@
+# logs
+*.log
+npm-debug.log*
+
+# dependencies
+node_modules/
+
+# production
+dist/
+dist-ssr/
+
+# IDEs/Editors
+.idea/
+.vscode/
+*.suo
+*.ntvsca
+*.njsproj
+*.sln
+*.sw?
+.DS_Store
