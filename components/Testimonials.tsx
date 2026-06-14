@@ -1,3 +1,5 @@
+'use client';
+
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import { FaComments, FaGoogle, FaStar, FaHeart, FaCalendarAlt } from 'react-icons/fa';
@@ -17,13 +19,13 @@ export default function Testimonials() {
       <div ref={ref} className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="text-center mb-6 sm:mb-8">
-          <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-blush/50 to-lavender-light/25 text-rose px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[8px] sm:text-[10px] font-semibold tracking-wider mb-2 sm:mb-3 border border-accent/10">
-            <FaComments className="text-[6px] sm:text-[8px]" /> CLIENT REVIEWS
+          <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-blush/50 to-lavender-light/25 text-rose px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-[12px] font-semibold tracking-wider mb-2 sm:mb-3 border border-accent/10">
+            <FaComments className="text-[8px] sm:text-[10px]" /> CLIENT REVIEWS
           </span>
-          <h2 className="font-serif text-[1.3rem] sm:text-3xl md:text-4xl font-bold text-dark mb-1.5 sm:mb-3">
+          <h2 className="font-serif text-[1.4rem] sm:text-3xl md:text-4xl font-bold text-dark mb-1.5 sm:mb-3">
             Be Our <span className="text-gradient">First Voice</span>
           </h2>
-          <p className="text-dark/40 max-w-sm mx-auto text-[11px] sm:text-sm">
+          <p className="text-dark/40 max-w-sm mx-auto text-[13px] sm:text-[15.5px]">
             We're newly opened and excited to serve you! Your experience matters to us.
           </p>
         </motion.div>
@@ -45,7 +47,7 @@ export default function Testimonials() {
           {/* Grand Opening Badge */}
           <motion.div
             animate={{ scale: [1, 1.04, 1] }} transition={{ repeat: Infinity, duration: 3 }}
-            className="inline-flex items-center gap-2 bg-gradient-to-r from-rose to-rose-dark text-white px-4 py-1.5 rounded-full text-[9px] sm:text-[11px] font-bold tracking-wider mb-4 shadow-md shadow-rose/20">
+            className="inline-flex items-center gap-2 bg-gradient-to-r from-rose to-rose-dark text-white px-4 py-1.5 rounded-full text-[10px] sm:text-[12px] font-bold tracking-wider mb-4 shadow-md shadow-rose/20">
             🎉 GRAND OPENING — WE JUST OPENED!
           </motion.div>
 
@@ -63,7 +65,7 @@ export default function Testimonials() {
           <h3 className="font-serif text-xl sm:text-2xl font-bold text-dark mb-3">
             Your Review Will Be First! 💌
           </h3>
-          <p className="text-dark/60 text-[13px] sm:text-[15px] leading-relaxed max-w-md mx-auto mb-5">
+          <p className="text-dark/60 text-[15px] sm:text-[17px] leading-relaxed max-w-md mx-auto mb-5">
             We are a <span className="text-rose font-semibold">freshly opened</span> beauty room and every client is precious to us.
             Book your first appointment, experience our care, and let the world know how you felt!
           </p>
@@ -79,7 +81,7 @@ export default function Testimonials() {
                 <div className="w-10 h-10 sm:w-12 sm:h-12 glass-rose rounded-xl flex items-center justify-center text-xl sm:text-2xl">
                   {f.emoji}
                 </div>
-                <span className="text-[9px] sm:text-[11px] text-dark/55 font-medium">{f.label}</span>
+                <span className="text-[10px] sm:text-[12px] text-dark/55 font-medium">{f.label}</span>
               </div>
             ))}
           </div>
@@ -87,11 +89,11 @@ export default function Testimonials() {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 justify-center">
             <a href="https://www.google.com/maps/search/Blossom+Beauty+Room+Douglasville+GA" target="_blank" rel="noopener noreferrer"
-              className="btn-glow flex items-center justify-center gap-2 bg-gradient-to-r from-rose to-rose-dark text-white px-6 py-3 rounded-full font-semibold text-[12px] sm:text-sm shadow-md shadow-rose/20 min-h-[44px]">
+              className="btn-glow flex items-center justify-center gap-2 bg-gradient-to-r from-rose to-rose-dark text-white px-6 py-3 rounded-full font-semibold text-[13px] sm:text-sm shadow-md shadow-rose/20 min-h-[44px]">
               <FaGoogle className="text-xs" /> Leave a Review on Google
             </a>
             <button onClick={() => scrollTo('#booking')}
-              className="btn-rose-outline flex items-center justify-center gap-2 glass text-rose border border-accent/25 px-6 py-3 rounded-full font-semibold text-[12px] sm:text-sm min-h-[44px]">
+              className="btn-rose-outline flex items-center justify-center gap-2 glass text-rose border border-accent/25 px-6 py-3 rounded-full font-semibold text-[13px] sm:text-sm min-h-[44px]">
               <FaCalendarAlt className="text-xs" /> Book Your Visit
             </button>
           </div>
@@ -105,7 +107,7 @@ export default function Testimonials() {
           </div>
           <div>
             <p className="font-serif text-sm sm:text-base font-bold text-dark mb-0.5">Our Promise to You</p>
-              <p className="text-[11px] sm:text-[13px] text-dark/60 leading-relaxed">
+            <p className="text-[13px] sm:text-[15px] text-dark/60 leading-relaxed">
               Every client who walks through our door gets our full attention and the best beauty care. We can't wait to make you glow! ✨
             </p>
           </div>

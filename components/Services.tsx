@@ -1,7 +1,10 @@
+'use client';
+
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useRef, useState } from 'react';
 import { FaCut, FaSpa, FaMagic, FaGem, FaEye, FaHandSparkles, FaArrowRight, FaCalendarAlt, FaClock } from 'react-icons/fa';
 import type { IconType } from 'react-icons';
+import Image from 'next/image';
 
 interface Svc { name: string; price: string; popular?: boolean; revisit?: string; }
 interface Cat { name: string; icon: IconType; color: string; image: string; desc: string; services: Svc[]; }
@@ -112,19 +115,19 @@ export default function Services() {
       <div className="section-divider" />
       <div className="absolute top-16 right-0 w-48 sm:w-72 h-48 sm:h-72 rounded-full bg-blush/10 blur-3xl pointer-events-none" />
       <div className="absolute bottom-16 left-0 w-48 sm:w-72 h-48 sm:h-72 rounded-full bg-lavender/8 blur-3xl pointer-events-none" />
-      <img src="/images/section-flowers.png" alt="" className="floral-corner bottom-0 left-0 w-28 sm:w-48 opacity-[0.05]" />
+      <Image src="/images/section-flowers.png" alt="" width={192} height={192} className="floral-corner bottom-0 left-0 w-28 sm:w-48 h-auto opacity-[0.05]" />
 
       <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}
           className="text-center mb-6 sm:mb-10">
-          <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-blush/50 to-lavender-light/30 text-rose px-3 py-1 rounded-full text-[9px] sm:text-xs font-semibold tracking-wider mb-2.5 sm:mb-3 border border-accent/15">
+          <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-blush/50 to-lavender-light/30 text-rose px-3 py-1 rounded-full text-[10px] sm:text-[12px] font-semibold tracking-wider mb-2.5 sm:mb-3 border border-accent/15">
             <FaGem className="text-[7px] sm:text-[8px]" /> OUR SERVICES
           </span>
           <h2 className="font-serif text-[1.4rem] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-dark mb-2 sm:mb-3">
             Premium <span className="text-gradient">Beauty Services</span>
           </h2>
-          <p className="text-dark/60 max-w-md mx-auto text-[12px] sm:text-sm md:text-base">
+          <p className="text-dark/60 max-w-md mx-auto text-[14px] sm:text-[15.5px] md:text-[17px]">
             Every treatment bloomed with specialist care, delivered with love.
           </p>
         </motion.div>
@@ -137,12 +140,12 @@ export default function Services() {
               const TabIcon = c.icon;
               return (
                 <button key={c.name} onClick={() => switchCat(i)}
-                  className={`snap-center flex-shrink-0 flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full text-[11px] sm:text-[13px] font-medium transition-all duration-300 whitespace-nowrap min-h-[36px] sm:min-h-[40px] ${
+                  className={`snap-center flex-shrink-0 flex items-center gap-1 sm:gap-1.5 px-3 sm:px-4 py-2 sm:py-2.5 rounded-full text-[13px] sm:text-[15px] font-medium transition-all duration-300 whitespace-nowrap min-h-[36px] sm:min-h-[40px] ${
                     active === i
                       ? 'bg-gradient-to-r from-rose to-rose-dark text-white shadow-md shadow-rose/20'
                       : 'bg-blush/30 text-dark/45 active:scale-[0.96]'
                   }`}>
-                  <TabIcon className={`text-[9px] sm:text-[10px] ${active === i ? 'text-white/80' : 'text-accent'}`} />
+                  <TabIcon className={`text-[10px] sm:text-[12px] ${active === i ? 'text-white/80' : 'text-accent'}`} />
                   {c.name}
                 </button>
               );
@@ -158,10 +161,9 @@ export default function Services() {
 
             {/* Image card */}
             <div className="relative rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden shadow-lg group">
-              <img src={cat.image} alt={cat.name}
-                className="w-full h-44 sm:h-56 md:h-72 lg:h-[420px] object-cover transition-transform duration-700 group-hover:scale-105" loading="lazy" />
+              <Image src={cat.image} alt={cat.name} width={800} height={600} unoptimized={true}
+                className="w-full h-44 sm:h-56 md:h-72 lg:h-[420px] object-cover transition-transform duration-700 group-hover:scale-105" />
               <div className="absolute inset-0 bg-gradient-to-t from-dark/70 via-dark/15 to-transparent" />
-
 
               {/* Category label */}
               <div className="absolute bottom-0 left-0 right-0 p-3 sm:p-5">
@@ -172,26 +174,26 @@ export default function Services() {
                     </div>
                     <div>
                       <h3 className="font-serif text-lg sm:text-2xl text-white font-bold leading-tight">{cat.name}</h3>
-                      <p className="text-white/55 text-[9px] sm:text-[11px]">{cat.services.length} services available</p>
+                      <p className="text-white/55 text-[10px] sm:text-[12px]">{cat.services.length} services available</p>
                     </div>
                   </div>
                   <div className="glass-strong rounded-lg px-2 py-1 sm:px-3 sm:py-1.5 hidden sm:block">
-                    <p className="text-[8px] text-dark/40 font-medium">Starting from</p>
+                    <p className="text-[9px] text-dark/40 font-medium">Starting from</p>
                     <p className="font-serif text-base sm:text-lg font-bold text-rose leading-none">{cat.services[0].price}</p>
                   </div>
                 </div>
-                <p className="text-white/60 text-[10px] sm:text-xs mt-2 leading-relaxed hidden sm:block">{cat.desc}</p>
+                <p className="text-white/60 text-[11px] sm:text-[13px] mt-2 leading-relaxed hidden sm:block">{cat.desc}</p>
               </div>
               <div className="absolute top-2.5 left-2.5 sm:hidden">
                 <div className="glass-strong rounded-md px-2 py-0.5">
-                  <p className="text-[7px] text-dark/40">From <span className="font-serif font-bold text-rose text-[10px]">{cat.services[0].price}</span></p>
+                  <p className="text-[8px] text-dark/40">From <span className="font-serif font-bold text-rose text-[11px]">{cat.services[0].price}</span></p>
                 </div>
               </div>
             </div>
 
             {/* Service list */}
             <div>
-              <p className="text-[9px] sm:text-[10px] text-dark/30 font-semibold uppercase tracking-[0.2em] mb-2 sm:mb-3 px-0.5 flex items-center gap-1.5">
+              <p className="text-[10px] sm:text-[12px] text-dark/30 font-semibold uppercase tracking-[0.2em] mb-2 sm:mb-3 px-0.5 flex items-center gap-1.5">
                 <span className="w-4 sm:w-6 h-px bg-accent/40" /> Price List
               </p>
 
@@ -205,15 +207,15 @@ export default function Services() {
                     <div className="flex items-center gap-2 sm:gap-2.5 min-w-0 flex-1">
                       <div className={`w-1.5 h-1.5 rounded-full bg-gradient-to-br ${cat.color} group-hover:scale-[2] transition-transform duration-300 flex-shrink-0`} />
                       <div className="min-w-0">
-                        <span className="font-medium text-dark/80 text-[13px] sm:text-[14px] truncate block">{svc.name}</span>
+                        <span className="font-medium text-dark/80 text-[15px] sm:text-[16.5px] truncate block">{svc.name}</span>
                         {svc.revisit && (
-                          <span className="flex items-center gap-0.5 text-[8px] sm:text-[9px] text-dark/30 font-medium">
-                            <FaClock className="text-[6px] text-accent/60" /> Revisit: {svc.revisit}
+                          <span className="flex items-center gap-0.5 text-[9px] sm:text-[11px] text-dark/30 font-medium">
+                            <FaClock className="text-[8px] text-accent/60" /> Revisit: {svc.revisit}
                           </span>
                         )}
                       </div>
                       {svc.popular && (
-                        <span className="hidden sm:inline-flex items-center bg-rose/8 text-rose text-[7px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wider flex-shrink-0">Popular</span>
+                        <span className="hidden sm:inline-flex items-center bg-rose/8 text-rose text-[8px] font-bold px-1.5 py-0.5 rounded-full uppercase tracking-wider flex-shrink-0">Popular</span>
                       )}
                     </div>
                     <div className="flex items-center gap-1.5 sm:gap-2 flex-shrink-0 ml-2">
@@ -227,8 +229,8 @@ export default function Services() {
               {/* Revisit hint */}
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
                 className="mt-3 glass rounded-lg p-2.5 flex items-center gap-2 border border-accent/15">
-                <FaClock className="text-accent text-[10px] flex-shrink-0" />
-                <p className="text-[9px] sm:text-[10px] text-dark/40 leading-snug">
+                <FaClock className="text-accent text-[11px] flex-shrink-0" />
+                <p className="text-[11px] sm:text-[12px] text-dark/40 leading-snug">
                   <span className="font-semibold text-dark/55">💡 Revisit Tip:</span>{' '}
                   We'll remind you when it's time to come back for your next {cat.name.toLowerCase()} appointment!
                 </p>
@@ -238,12 +240,12 @@ export default function Services() {
               <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.3 }}
                 className="mt-3 sm:mt-4 flex gap-2 sm:gap-3">
                 <button onClick={() => scrollTo('#booking')}
-                  className="flex-1 btn-glow bg-gradient-to-r from-rose to-rose-dark text-white py-2.5 sm:py-3 rounded-full font-semibold text-[12px] sm:text-sm tracking-wide shadow-md shadow-rose/12 flex items-center justify-center gap-1.5 min-h-[42px] sm:min-h-[44px]">
-                  <FaCalendarAlt className="text-[9px] sm:text-[10px]" /> Book {cat.name}
+                  className="flex-1 btn-glow bg-gradient-to-r from-rose to-rose-dark text-white py-2.5 sm:py-3 rounded-full font-semibold text-[13px] sm:text-sm tracking-wide shadow-md shadow-rose/12 flex items-center justify-center gap-1.5 min-h-[42px] sm:min-h-[44px]">
+                  <FaCalendarAlt className="text-[10px] sm:text-[11px]" /> Book {cat.name}
                 </button>
                 <button onClick={() => scrollTo('#contact')}
-                  className="btn-rose-outline border border-accent/20 text-rose py-2.5 sm:py-3 px-4 sm:px-5 rounded-full font-semibold text-[12px] sm:text-sm flex items-center gap-1.5 min-h-[42px] sm:min-h-[44px] flex-shrink-0">
-                  <FaArrowRight className="text-[8px]" />
+                  className="btn-rose-outline border border-accent/20 text-rose py-2.5 sm:py-3 px-4 sm:px-5 rounded-full font-semibold text-[13px] sm:text-sm flex items-center gap-1.5 min-h-[42px] sm:min-h-[44px] flex-shrink-0">
+                  <FaArrowRight className="text-[9px]" />
                 </button>
               </motion.div>
             </div>
@@ -253,7 +255,7 @@ export default function Services() {
         {/* All categories grid */}
         <motion.div initial={{ opacity: 0, y: 16 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.3 }}
           className="mt-8 sm:mt-12 text-center">
-          <p className="text-[10px] sm:text-xs text-dark/30 mb-3 sm:mb-4 font-medium uppercase tracking-wider">All Categories</p>
+          <p className="text-[11px] sm:text-[13px] text-dark/30 mb-3 sm:mb-4 font-medium uppercase tracking-wider">All Categories</p>
           <div className="grid grid-cols-3 sm:grid-cols-6 gap-2 sm:gap-3 max-w-lg sm:max-w-2xl mx-auto">
             {categories.map((c, i) => {
               const CI = c.icon;
@@ -263,9 +265,9 @@ export default function Services() {
                     active === i ? 'ring-2 ring-rose/30 shadow-md shadow-rose/8' : 'hover:shadow-md'
                   }`}>
                   <div className={`w-7 h-7 sm:w-9 sm:h-9 rounded-lg bg-gradient-to-br ${c.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                    <CI className="text-white text-[10px] sm:text-xs" />
+                    <CI className="text-white text-[11px] sm:text-[13px]" />
                   </div>
-                  <span className="text-[8px] sm:text-[10px] font-medium text-dark/50 leading-tight">{c.name}</span>
+                  <span className="text-[9px] sm:text-[11px] font-medium text-dark/50 leading-tight">{c.name}</span>
                 </button>
               );
             })}

@@ -18,3 +18,10 @@ dist-ssr/
 *.sln
 *.sw?
 .DS_Store
+
+# next.js
+.next/
+out/
+
+# local env files
+.env*.local
