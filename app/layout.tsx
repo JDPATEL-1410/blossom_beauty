@@ -35,6 +35,9 @@ export const metadata: Metadata = {
       "Experience luxury beauty services at Blossom Beauty Room. Specializing in lash enhancements, facials, waxing, threading & more.",
     type: "website",
   },
+  icons: {
+    icon: "/images/logo.png",
+  },
 };
 
 export default function RootLayout({
@@ -45,6 +48,7 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${greatVibes.variable} ${cormorantGaramond.variable} ${montserrat.variable}`}
     >
       <body className="antialiased">{children}</body>

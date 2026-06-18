@@ -33,27 +33,28 @@ export default function Booking() {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState({ name: '', phone: '', email: '', service: '', date: '', time: '', notes: '' });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const appts = JSON.parse(localStorage.getItem('blossom_appointments') || '[]');
-      appts.unshift({
-        id: Date.now().toString(),
-        name: formData.name,
-        phone: formData.phone,
-        email: formData.email,
-        service: formData.service,
-        date: formData.date,
-        time: formData.time,
-        notes: formData.notes,
-        status: 'pending',
-        createdAt: new Date().toISOString(),
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+      const res = await fetch(`${apiUrl}/api/appointments`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
-      localStorage.setItem('blossom_appointments', JSON.stringify(appts));
-    } catch (_) {}
-    setSubmitted(true);
-    setFormData({ name: '', phone: '', email: '', service: '', date: '', time: '', notes: '' });
-    setTimeout(() => setSubmitted(false), 5000);
+
+      if (res.ok) {
+        setSubmitted(true);
+        setFormData({ name: '', phone: '', email: '', service: '', date: '', time: '', notes: '' });
+        setTimeout(() => setSubmitted(false), 5000);
+      } else {
+        console.error('Failed to submit appointment');
+      }
+    } catch (error) {
+      console.error('Error submitting appointment:', error);
+    }
   };
 
   const inputCls = 'w-full px-3 sm:px-3.5 py-2.5 sm:py-3 rounded-xl border border-accent/20 bg-white/50 focus:border-rose focus:ring-2 focus:ring-rose/10 outline-none transition-all placeholder:text-dark/20 text-dark/70 text-sm';

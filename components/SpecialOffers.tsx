@@ -1,58 +1,45 @@
 'use client';
 
 import { motion, useInView } from 'framer-motion';
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { FaStar, FaTag, FaGift, FaBolt, FaPercentage, FaCalendarAlt } from 'react-icons/fa';
 import Image from 'next/image';
 
-const offers = [
-  {
-    title: 'Eyebrow Threading',
-    orig: '$10', price: '$7', save: '30%',
-    badge: 'Most Popular',
-    icon: FaStar,
-    image: 'https://images.pexels.com/photos/6135620/pexels-photo-6135620.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=400',
-    gradient: 'from-rose/80 to-rose-dark/90',
-    accent: '#F8D7E3',
-    emoji: '✨',
-  },
-  {
-    title: 'Full Face Threading',
-    orig: '$35', price: '$25', save: '$10',
-    badge: 'Save Big',
-    icon: FaTag,
-    image: 'https://images.pexels.com/photos/3985329/pexels-photo-3985329.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=400',
-    gradient: 'from-lavender/80 to-accent/90',
-    accent: '#E8D5F0',
-    emoji: '💆',
-  },
-  {
-    title: 'Any Facial',
-    orig: '$55', price: '$40', save: '27%',
-    badge: 'Best Value',
-    icon: FaGift,
-    image: 'https://images.pexels.com/photos/5659016/pexels-photo-5659016.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=400',
-    gradient: 'from-accent/80 to-rose-gold/90',
-    accent: '#FDE8EF',
-    emoji: '🌸',
-  },
-  {
-    title: 'Haircut + Style',
-    orig: '$45', price: '$25', save: '44%',
-    badge: 'Limited Offer',
-    icon: FaBolt,
-    image: 'https://images.pexels.com/photos/8468125/pexels-photo-8468125.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=400&w=400',
-    gradient: 'from-rose-gold/80 to-rose/90',
-    accent: '#CDB4DB',
-    emoji: '💇',
-  },
-];
+const iconMap: Record<string, React.ElementType> = {
+  FaStar: FaStar,
+  FaTag: FaTag,
+  FaGift: FaGift,
+  FaBolt: FaBolt,
+};
 
-const go = (id: string) => { const el = document.querySelector(id); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); };
+const go = (id: string) => { 
+  const el = document.querySelector(id); 
+  if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); 
+};
 
 export default function SpecialOffers() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-50px' });
+  const [offers, setOffers] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchOffers = async () => {
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+        const res = await fetch(`${apiUrl}/api/offers`);
+        if (res.ok) {
+          const data = await res.json();
+          setOffers(data);
+        }
+      } catch (error) {
+        console.error('Error fetching offers:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchOffers();
+  }, []);
 
   return (
     <section id="offers" className="relative py-12 sm:py-20 md:py-28 overflow-hidden">
@@ -69,63 +56,75 @@ export default function SpecialOffers() {
           <h2 className="font-serif text-[1.4rem] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-dark mb-1.5 sm:mb-3">
             Special <span className="text-gradient">Beauty Offers</span>
           </h2>
-          <p className="text-dark/60 max-w-md mx-auto text-[14px] sm:text-[15.5px]">Limited time deals to celebrate our grand opening. Book today and save!</p>
+          <p className="text-dark/80 max-w-md mx-auto text-[14px] sm:text-[15.5px]">Limited time deals to celebrate our grand opening. Book today and save!</p>
         </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
-          {offers.map((o, i) => {
-            const Icon = o.icon;
-            return (
-              <motion.div key={o.title}
-                initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: 0.08 + i * 0.08 }}
-                className="service-card relative group rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl hover:shadow-rose/15 transition-all duration-500"
-                onClick={() => go('#booking')}
-              >
-                {/* Background image */}
-                <div className="relative h-[160px] sm:h-[200px] md:h-[220px] overflow-hidden">
-                  <Image src={o.image} alt={o.title} width={400} height={400} unoptimized={true}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" />
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark/85 via-dark/15 to-transparent" />
-                  {/* Blossom petals overlay */}
-                  <div className="absolute inset-0 pointer-events-none">
-                    <span className="absolute text-xl opacity-60 animate-gentle-float" style={{ top: '10%', right: '12%' }}>🌸</span>
-                    <span className="absolute text-lg opacity-40 animate-gentle-float-alt" style={{ top: '40%', left: '8%', animationDelay: '1s' }}>🌸</span>
-                  </div>
+        {loading ? (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
+            {[1, 2, 3, 4].map((i) => (
+              <div key={i} className="h-[260px] sm:h-[300px] bg-slate-100 rounded-2xl animate-pulse"></div>
+            ))}
+          </div>
+        ) : offers.length === 0 ? (
+          <div className="text-center py-10">
+            <p className="text-dark/40 font-medium">No special offers at the moment. Please check back later!</p>
+          </div>
+        ) : (
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-5">
+            {offers.map((o, i) => {
+              const Icon = iconMap[o.icon] || FaStar;
+              return (
+                <motion.div key={o._id}
+                  initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: 0.08 + i * 0.08 }}
+                  className="service-card relative group rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer shadow-lg hover:shadow-2xl hover:shadow-rose/15 transition-all duration-500"
+                  onClick={() => go('#booking')}
+                >
+                  {/* Background image */}
+                  <div className="relative h-[160px] sm:h-[200px] md:h-[220px] overflow-hidden bg-slate-900">
+                    <Image src={o.image} alt={o.title} width={400} height={400} unoptimized={true}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 opacity-90" />
+                    {/* Gradient overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-dark/95 via-dark/30 to-transparent" />
+                    {/* Blossom petals overlay */}
+                    <div className="absolute inset-0 pointer-events-none">
+                      <span className="absolute text-xl opacity-60 animate-gentle-float" style={{ top: '10%', right: '12%' }}>🌸</span>
+                      <span className="absolute text-lg opacity-40 animate-gentle-float-alt" style={{ top: '40%', left: '8%', animationDelay: '1s' }}>🌸</span>
+                    </div>
 
-                  {/* Badge */}
-                  <div className="absolute top-2.5 left-2.5 z-10">
-                    <span className="animate-ribbon inline-flex items-center gap-1 bg-white/20 backdrop-blur-sm text-white text-[9px] sm:text-[11px] font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border border-white/30 shadow-sm">
-                      <Icon className="text-[8px] sm:text-[10px]" /> {o.badge}
-                    </span>
-                  </div>
-
-                  {/* Price overlay */}
-                  <div className="absolute bottom-0 left-0 right-0 p-2.5 sm:p-3.5">
-                    <h3 className="font-serif text-[14px] sm:text-[17px] font-bold text-white mb-1 leading-tight drop-shadow">{o.title}</h3>
-                    <div className="flex items-center gap-2">
-                      <span className="text-white/60 line-through text-[11px] sm:text-[13px]">{o.orig}</span>
-                      <span className="font-serif text-[19px] sm:text-[24px] font-bold text-white drop-shadow">{o.price}</span>
-                      <span className="ml-auto bg-emerald/80 text-white text-[9px] sm:text-[11px] font-bold px-1.5 py-0.5 rounded-full">
-                        Save {o.save}
+                    {/* Badge */}
+                    <div className="absolute top-2.5 left-2.5 z-10">
+                      <span className="animate-ribbon inline-flex items-center gap-1 bg-white/20 backdrop-blur-sm text-white text-[9px] sm:text-[11px] font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full border border-white/30 shadow-sm">
+                        <Icon className="text-[8px] sm:text-[10px]" /> {o.badge}
                       </span>
                     </div>
-                  </div>
-                </div>
 
-                {/* Book button */}
-                <div className="bg-white p-2 sm:p-3">
-                  <button
-                    onClick={() => go('#booking')}
-                    className="btn-glow w-full bg-gradient-to-r from-rose to-rose-dark text-white py-2 sm:py-2.5 rounded-full text-[12px] sm:text-[14px] font-semibold flex items-center justify-center gap-1.5 shadow-sm min-h-[34px] sm:min-h-[38px]">
-                    <FaCalendarAlt className="text-[9px] sm:text-[11px]" /> Book Now
-                  </button>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
+                    {/* Price overlay */}
+                    <div className="absolute bottom-0 left-0 right-0 p-2.5 sm:p-3.5">
+                      <h3 className="font-serif text-[14px] sm:text-[17px] font-bold text-white mb-1 leading-tight drop-shadow">{o.title}</h3>
+                      <div className="flex items-center gap-2">
+                        <span className="text-white/60 line-through text-[11px] sm:text-[13px]">{o.orig}</span>
+                        <span className="font-serif text-[19px] sm:text-[24px] font-bold text-white drop-shadow">{o.price}</span>
+                        <span className="ml-auto bg-emerald/80 text-white text-[9px] sm:text-[11px] font-bold px-1.5 py-0.5 rounded-full">
+                          Save {o.save}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Book button */}
+                  <div className="bg-white p-2 sm:p-3">
+                    <button
+                      onClick={() => go('#booking')}
+                      className="btn-glow w-full bg-gradient-to-r from-rose to-rose-dark text-white py-2 sm:py-2.5 rounded-full text-[12px] sm:text-[14px] font-semibold flex items-center justify-center gap-1.5 shadow-sm min-h-[34px] sm:min-h-[38px]">
+                      <FaCalendarAlt className="text-[9px] sm:text-[11px]" /> Book Now
+                    </button>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        )}
 
         <motion.div initial={{ opacity: 0, y: 12 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.5 }}
           className="mt-5 sm:mt-8 flex flex-wrap justify-center gap-1.5 sm:gap-3">

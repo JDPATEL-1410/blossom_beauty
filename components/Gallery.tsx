@@ -6,47 +6,30 @@ import { HiX, HiChevronLeft, HiChevronRight } from 'react-icons/hi';
 import { FaCamera, FaSearchPlus } from 'react-icons/fa';
 import Image from 'next/image';
 
-const staticImgs = [
-  { src: '/images/room-9.png', alt: 'Our Studio (Room 9)', cat: 'Studio' },
-  { src: '/images/entryway.png', alt: 'Salon Entry Way', cat: 'Studio' },
-  { src: 'https://images.pexels.com/photos/6135620/pexels-photo-6135620.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=600&w=600', alt: 'Brow Shaping & Threading', cat: 'Threading' },
-  { src: 'https://images.pexels.com/photos/3985329/pexels-photo-3985329.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=500', alt: 'Facial Treatment', cat: 'Facials' },
-  { src: 'https://images.pexels.com/photos/6135621/pexels-photo-6135621.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=500', alt: 'Eyebrow Styling', cat: 'Threading' },
-  { src: 'https://images.pexels.com/photos/14615063/pexels-photo-14615063.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=700', alt: 'Hair Styling', cat: 'Hair' },
-  { src: 'https://images.pexels.com/photos/8554941/pexels-photo-8554941.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=500', alt: 'Lash Extensions', cat: 'Lashes' },
-  { src: 'https://images.pexels.com/photos/20695691/pexels-photo-20695691.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=500', alt: 'Bridal Beauty', cat: 'Bridal' },
-  { src: 'https://images.pexels.com/photos/5659018/pexels-photo-5659018.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=500', alt: 'Spa Treatment', cat: 'Facials' },
-  { src: 'https://images.pexels.com/photos/8468125/pexels-photo-8468125.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=500', alt: 'Hair Coloring', cat: 'Hair' },
-  { src: 'https://images.pexels.com/photos/7256109/pexels-photo-7256109.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=700', alt: 'Beauty Products', cat: 'Products' },
-  { src: 'https://images.pexels.com/photos/5659016/pexels-photo-5659016.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=500', alt: 'Head Massage', cat: 'Spa' },
-  { src: 'https://images.pexels.com/photos/7755207/pexels-photo-7755207.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=500', alt: 'Style Session', cat: 'Hair' },
-  { src: 'https://images.pexels.com/photos/3993449/pexels-photo-3993449.jpeg?auto=compress&cs=tinysrgb&fit=crop&h=500&w=500', alt: 'Waxing Service', cat: 'Waxing' },
-];
-
-function getAdminImages() {
-  try {
-    const uploaded = JSON.parse(localStorage.getItem('blossom_gallery') || '[]');
-    return uploaded.map((u: any) => ({ src: u.url, alt: u.alt, cat: u.cat || 'Salon', isAdmin: true }));
-  } catch { return []; }
-}
-
 export default function Gallery() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-50px' });
   const [lb, setLb] = useState<number | null>(null);
   const [filter, setFilter] = useState('All');
   const [imgs, setImgs] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  // Initialize on mount
   useEffect(() => {
-    setImgs([...getAdminImages(), ...staticImgs]);
-  }, []);
-
-  // Refresh on focus (after admin uploads)
-  useEffect(() => {
-    const refresh = () => setImgs([...getAdminImages(), ...staticImgs]);
-    window.addEventListener('focus', refresh);
-    return () => window.removeEventListener('focus', refresh);
+    const fetchGallery = async () => {
+      try {
+        const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000';
+        const res = await fetch(`${apiUrl}/api/gallery`);
+        if (res.ok) {
+          const data = await res.json();
+          setImgs(data);
+        }
+      } catch (error) {
+        console.error('Error fetching gallery:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchGallery();
   }, []);
 
   const allCats = ['All', ...Array.from(new Set(imgs.map(i => i.cat)))];
@@ -71,51 +54,63 @@ export default function Gallery() {
           <p className="text-dark/55 max-w-sm mx-auto text-[14px] sm:text-[15.5px]">Stunning beauty transformations, treatments & our cozy room.</p>
         </motion.div>
 
-        {/* Filters */}
-        <motion.div initial={{ opacity: 0, y: 8 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.1 }}
-          className="flex flex-wrap justify-center gap-1 sm:gap-1.5 mb-4 sm:mb-6 -mx-4 sm:mx-0 px-4 sm:px-0">
-          {allCats.map(c => (
-            <button key={c} onClick={() => setFilter(c)}
-              className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-[13px] font-medium transition-all duration-300 min-h-[30px] sm:min-h-[34px] ${
-                filter === c ? 'bg-gradient-to-r from-rose to-rose-dark text-white shadow-sm' : 'bg-blush/25 text-dark/40 active:scale-95'
-              }`}>{c}</button>
-          ))}
-        </motion.div>
+        {loading ? (
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5 sm:gap-2.5">
+             {[1,2,3,4,5,6,7,8].map(i => <div key={i} className="h-[120px] sm:h-[160px] md:h-[180px] bg-slate-100 rounded-lg animate-pulse"></div>)}
+          </div>
+        ) : imgs.length === 0 ? (
+          <div className="text-center py-10">
+            <p className="text-dark/40 font-medium">No images in the gallery yet.</p>
+          </div>
+        ) : (
+          <>
+            {/* Filters */}
+            <motion.div initial={{ opacity: 0, y: 8 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.1 }}
+              className="flex flex-wrap justify-center gap-1 sm:gap-1.5 mb-4 sm:mb-6 -mx-4 sm:mx-0 px-4 sm:px-0">
+              {allCats.map(c => (
+                <button key={c} onClick={() => setFilter(c)}
+                  className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-full text-[11px] sm:text-[13px] font-medium transition-all duration-300 min-h-[30px] sm:min-h-[34px] ${
+                    filter === c ? 'bg-gradient-to-r from-rose to-rose-dark text-white shadow-sm' : 'bg-blush/25 text-dark/40 active:scale-95'
+                  }`}>{c}</button>
+              ))}
+            </motion.div>
 
-        {/* Grid */}
-        <motion.div layout className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5 sm:gap-2.5">
-          <AnimatePresence>
-            {filtered.map((img, i) => {
-              const gi = imgs.indexOf(img);
-              return (
-                <motion.div key={img.src} layout initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.92 }}
-                  transition={{ duration: 0.3, delay: i * 0.025 }}
-                  className={`gallery-item rounded-lg sm:rounded-xl overflow-hidden cursor-pointer relative group ${i === 0 && filter === 'All' ? 'sm:col-span-2 sm:row-span-2' : ''}`}
-                  onClick={() => setLb(gi)}>
-                  <Image src={img.src} alt={img.alt}
-                    width={800} height={600} unoptimized={img.src.startsWith('http')}
-                    className={`w-full object-cover ${i === 0 && filter === 'All' ? 'h-[120px] sm:h-full sm:min-h-[280px]' : 'h-[120px] sm:h-[160px] md:h-[180px]'}`} />
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark/55 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2 sm:p-3">
-                    <div>
-                      <p className="text-white font-serif text-[12px] sm:text-[14px] font-bold">{img.alt}</p>
-                      <p className="text-white/45 text-[9px] sm:text-[11px]">{img.cat}</p>
-                    </div>
-                  </div>
-                  <div className="absolute top-1 right-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
-                    <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center text-white">
-                      <FaSearchPlus className="text-[8px] sm:text-[10px]" />
-                    </div>
-                  </div>
-                </motion.div>
-              );
-            })}
-          </AnimatePresence>
-        </motion.div>
+            {/* Grid */}
+            <motion.div layout className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-1.5 sm:gap-2.5">
+              <AnimatePresence>
+                {filtered.map((img, i) => {
+                  const gi = imgs.indexOf(img);
+                  return (
+                    <motion.div key={img._id} layout initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.92 }}
+                      transition={{ duration: 0.3, delay: i * 0.025 }}
+                      className={`gallery-item rounded-lg sm:rounded-xl overflow-hidden cursor-pointer relative group ${i === 0 && filter === 'All' ? 'sm:col-span-2 sm:row-span-2' : ''}`}
+                      onClick={() => setLb(gi)}>
+                      <Image src={img.src.startsWith('/') ? img.src : img.src} alt={img.alt}
+                        width={800} height={600} unoptimized={img.src.startsWith('http')}
+                        className={`w-full object-cover ${i === 0 && filter === 'All' ? 'h-[120px] sm:h-full sm:min-h-[280px]' : 'h-[120px] sm:h-[160px] md:h-[180px]'}`} />
+                      <div className="absolute inset-0 bg-gradient-to-t from-dark/55 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-2 sm:p-3">
+                        <div>
+                          <p className="text-white font-serif text-[12px] sm:text-[14px] font-bold">{img.alt}</p>
+                          <p className="text-white/45 text-[9px] sm:text-[11px]">{img.cat}</p>
+                        </div>
+                      </div>
+                      <div className="absolute top-1 right-1 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity">
+                        <div className="w-5 h-5 sm:w-6 sm:h-6 rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center text-white">
+                          <FaSearchPlus className="text-[8px] sm:text-[10px]" />
+                        </div>
+                      </div>
+                    </motion.div>
+                  );
+                })}
+              </AnimatePresence>
+            </motion.div>
+          </>
+        )}
       </div>
 
       {/* Lightbox */}
       <AnimatePresence>
-        {lb !== null && (
+        {lb !== null && imgs[lb] && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}
             className="fixed inset-0 z-[200] bg-dark/95 backdrop-blur-lg flex items-center justify-center p-2 sm:p-6" onClick={() => setLb(null)}>
             <button className="absolute top-2 right-2 sm:top-4 sm:right-4 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/10 backdrop-blur flex items-center justify-center text-white/70 z-10" onClick={() => setLb(null)}><HiX size={18} /></button>
