@@ -25,6 +25,8 @@ app.use('/api/hero', heroRoutes);
 app.use('/api/offers', offerRoutes);
 app.use('/api/gallery', require('./routes/galleryRoutes'));
 app.use('/api/appointments', require('./routes/appointmentRoutes'));
+app.use('/api/clients', require('./routes/clientRoutes'));
+app.use('/api/services', require('./routes/serviceRoutes'));
 
 app.get('/', (req, res) => {
     res.send('API is running...');
