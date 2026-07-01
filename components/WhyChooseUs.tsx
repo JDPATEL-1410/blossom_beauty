@@ -36,7 +36,7 @@ export default function WhyChooseUs() {
           <h2 className="font-serif text-[1.4rem] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-dark mb-1.5 sm:mb-3">
             Why Choose <span className="text-gradient">Us</span>
           </h2>
-          <p className="text-dark/55 max-w-md mx-auto text-[14px] sm:text-[15.5px]">The premier beauty room in Douglasville, Georgia. Your one-stop private space for all things beautiful.</p>
+          <p className="text-black font-bold max-w-md mx-auto text-[14px] sm:text-[15.5px]">The premier beauty room in Douglasville, Georgia. Your one-stop private space for all things beautiful.</p>
         </motion.div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 sm:gap-3">
@@ -49,7 +49,7 @@ export default function WhyChooseUs() {
                   <Icon className="text-rose text-sm sm:text-base" />
                 </div>
                 <h3 className="font-serif text-[14px] sm:text-[15px] font-bold text-dark mb-0.5 sm:mb-1 leading-tight">{r.title}</h3>
-                <p className="text-[11.5px] sm:text-[13px] text-dark/55 leading-snug">{r.desc}</p>
+                <p className="text-[11.5px] sm:text-[13px] text-black font-bold leading-snug">{r.desc}</p>
               </motion.div>
             );
           })}

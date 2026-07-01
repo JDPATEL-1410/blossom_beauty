@@ -25,7 +25,7 @@ export default function Testimonials() {
           <h2 className="font-serif text-[1.4rem] sm:text-3xl md:text-4xl font-bold text-dark mb-1.5 sm:mb-3">
             Be Our <span className="text-gradient">First Voice</span>
           </h2>
-          <p className="text-dark/40 max-w-sm mx-auto text-[13px] sm:text-[15.5px]">
+          <p className="text-black font-bold max-w-sm mx-auto text-[13px] sm:text-[15.5px]">
             We're newly opened and excited to serve you! Your experience matters to us.
           </p>
         </motion.div>
@@ -65,8 +65,8 @@ export default function Testimonials() {
           <h3 className="font-serif text-xl sm:text-2xl font-bold text-dark mb-3">
             Your Review Will Be First! 💌
           </h3>
-          <p className="text-dark/60 text-[15px] sm:text-[17px] leading-relaxed max-w-md mx-auto mb-5">
-            We are a <span className="text-rose font-semibold">freshly opened</span> beauty room and every client is precious to us.
+          <p className="text-black font-bold text-[15px] sm:text-[17px] leading-relaxed max-w-md mx-auto mb-5">
+            We are a <span className="text-rose font-black">freshly opened</span> beauty room and every client is precious to us.
             Book your first appointment, experience our care, and let the world know how you felt!
           </p>
 
@@ -81,7 +81,7 @@ export default function Testimonials() {
                 <div className="w-10 h-10 sm:w-12 sm:h-12 glass-rose rounded-xl flex items-center justify-center text-xl sm:text-2xl">
                   {f.emoji}
                 </div>
-                <span className="text-[10px] sm:text-[12px] text-dark/55 font-medium">{f.label}</span>
+                <span className="text-[10px] sm:text-[12px] text-black font-bold">{f.label}</span>
               </div>
             ))}
           </div>
@@ -106,8 +106,8 @@ export default function Testimonials() {
             <FaHeart className="text-rose text-lg" />
           </div>
           <div>
-            <p className="font-serif text-sm sm:text-base font-bold text-dark mb-0.5">Our Promise to You</p>
-            <p className="text-[13px] sm:text-[15px] text-dark/60 leading-relaxed">
+            <p className="font-serif text-sm sm:text-base font-extrabold text-black mb-0.5">Our Promise to You</p>
+            <p className="text-[13px] sm:text-[15px] text-black font-bold leading-relaxed">
               Every client who walks through our door gets our full attention and the best beauty care. We can't wait to make you glow! ✨
             </p>
           </div>

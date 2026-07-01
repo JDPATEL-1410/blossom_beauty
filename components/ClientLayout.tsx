@@ -1,21 +1,14 @@
-import { useState, useEffect } from 'react';
-import FloatingPetals from './components/FloatingPetals';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import About from './components/About';
-import Services from './components/Services';
-import SpecialOffers from './components/SpecialOffers';
-import WhyChooseUs from './components/WhyChooseUs';
-import Gallery from './components/Gallery';
-import Testimonials from './components/Testimonials';
-import Booking from './components/Booking';
-import Contact from './components/Contact';
-import Footer from './components/Footer';
-import BackToTop from './components/BackToTop';
-import MobileBookingBar from './components/MobileBookingBar';
-import AdminPanel from './components/AdminPanel';
+'use client';
 
-export default function App() {
+import { useState, useEffect } from 'react';
+import FloatingPetals from '@/components/FloatingPetals';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
+import BackToTop from '@/components/BackToTop';
+import MobileBookingBar from '@/components/MobileBookingBar';
+import AdminPanel from '@/components/AdminPanel';
+
+export default function ClientLayout({ children }: { children: React.ReactNode }) {
   const [adminOpen, setAdminOpen] = useState(false);
 
   useEffect(() => {
@@ -65,23 +58,18 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-cream antialiased">
+    <div className="min-h-screen bg-cream antialiased flex flex-col">
       <FloatingPetals />
       <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <SpecialOffers />
-        <Services />
-        <WhyChooseUs />
-        <Gallery />
-        <Testimonials />
-        <Booking />
-        <Contact />
+      
+      <main className="flex-grow">
+        {children}
       </main>
+      
       <Footer />
       <BackToTop />
       <MobileBookingBar />
+      
       {adminOpen && <AdminPanel onClose={handleCloseAdmin} />}
     </div>
   );

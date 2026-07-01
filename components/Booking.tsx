@@ -57,8 +57,8 @@ export default function Booking() {
     }
   };
 
-  const inputCls = 'w-full px-3 sm:px-3.5 py-2.5 sm:py-3 rounded-xl border border-accent/20 bg-white/50 focus:border-rose focus:ring-2 focus:ring-rose/10 outline-none transition-all placeholder:text-dark/20 text-dark/70 text-sm';
-  const labelCls = 'block text-[11px] sm:text-[12.5px] font-semibold text-dark/50 mb-1 sm:mb-1.5 uppercase tracking-wider';
+  const inputCls = 'w-full px-3 sm:px-3.5 py-2.5 sm:py-3 rounded-xl border border-accent/20 bg-white/50 focus:border-rose focus:ring-2 focus:ring-rose/10 outline-none transition-all placeholder:text-dark/40 text-black font-semibold text-sm';
+  const labelCls = 'block text-[11px] sm:text-[12.5px] font-extrabold text-black mb-1 sm:mb-1.5 uppercase tracking-wider';
 
   return (
     <section id="booking" className="relative py-12 sm:py-20 md:py-28 overflow-hidden">
@@ -80,21 +80,21 @@ export default function Booking() {
           <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-blush/50 to-lavender-light/30 text-rose px-2.5 sm:px-3 py-1 rounded-full text-[10px] sm:text-[12px] font-semibold tracking-wider mb-2 sm:mb-3 border border-accent/12">
             <FaClipboardList className="text-[8px] sm:text-[10px]" /> APPOINTMENTS
           </span>
-          <h2 className="font-serif text-[1.4rem] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-dark mb-1.5 sm:mb-3">
+          <h2 className="font-serif text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-black mb-1.5 sm:mb-3 leading-tight">
             Reserve Your <span className="text-gradient">Appointment</span>
           </h2>
-          <p className="text-dark/40 max-w-md mx-auto text-[13px] sm:text-[15px] mb-3 sm:mb-4">
+          <p className="text-black font-bold max-w-md mx-auto text-[13px] sm:text-[15px] mb-3 sm:mb-4">
             Schedule your beauty session today!
           </p>
 
           {/* Trust badges inline */}
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-4">
+          <div className="flex flex-wrap justify-center gap-x-3 gap-y-1.5 sm:gap-4">
             {[
               { icon: FaWalking, t: 'Walk-ins Welcome' },
               { icon: FaCalendarAlt, t: 'By Appointment' },
               { icon: FaClock, t: 'Flexible Hours' },
             ].map(item => (
-              <span key={item.t} className="flex items-center gap-1 text-[11px] sm:text-[13px] text-dark/40">
+              <span key={item.t} className="flex items-center gap-1 text-[11px] sm:text-[13px] text-black font-bold">
                 <item.icon className="text-rose text-[9px] sm:text-[11px]" /> {item.t}
               </span>
             ))}
@@ -220,7 +220,7 @@ export default function Booking() {
                 </button>
 
                 {/* Security note */}
-                <p className="text-center text-[10px] sm:text-[11px] text-dark/25 mt-1">
+                <p className="text-center text-[10px] sm:text-[11px] text-black font-bold mt-1">
                   <FaShieldAlt className="inline text-[9px] mr-1" />
                   Your information is safe. We never share your details.
                 </p>
@@ -238,22 +238,22 @@ export default function Booking() {
               <div className="w-11 h-11 mx-auto mb-2.5 rounded-xl bg-gradient-to-br from-blush to-accent/30 flex items-center justify-center">
                 <FaPhoneAlt className="text-rose text-sm" />
               </div>
-              <p className="font-serif text-base font-bold text-dark mb-0.5">Prefer to Call?</p>
+              <p className="font-serif text-base font-bold text-black mb-0.5">Prefer to Call?</p>
               <a href="tel:4045931680" className="text-rose font-semibold text-sm hover:text-rose-dark transition-colors">
                 (404) 593-1680
               </a>
-              <p className="text-[10.5px] text-dark/35 mt-1">Mon-Sat during business hours</p>
+              <p className="text-[10.5px] text-black font-bold mt-1">Mon-Sat during business hours</p>
             </div>
 
             {/* Why book card */}
             <div className="glass rounded-2xl p-5">
               <div className="flex items-center gap-2 mb-3">
                 <FaStar className="text-gold text-sm" />
-                <p className="font-serif text-sm font-bold text-dark">Why Book With Us</p>
+                <p className="font-serif text-sm font-bold text-black">Why Book With Us</p>
               </div>
               <ul className="space-y-2">
                 {['No booking fees', 'Flexible rescheduling', 'Personalized service', 'Premium products', 'Clean & hygienic studio'].map(t => (
-                  <li key={t} className="flex items-center gap-2 text-[12px] text-dark/45">
+                  <li key={t} className="flex items-center gap-2 text-[12px] text-black font-bold">
                     <FaCheckCircle className="text-emerald text-[10px] flex-shrink-0" /> {t}
                   </li>
                 ))}
@@ -263,8 +263,8 @@ export default function Booking() {
             {/* New client card */}
             <div className="glass-rose rounded-2xl p-5 text-center">
               <FaGift className="text-rose text-lg mx-auto mb-2" />
-              <p className="font-serif text-sm font-bold text-dark mb-0.5">New Client?</p>
-              <p className="text-[11px] text-dark/40">Special first-visit pricing!</p>
+              <p className="font-serif text-sm font-bold text-black mb-0.5">New Client?</p>
+              <p className="text-[11px] text-black font-bold">Special first-visit pricing!</p>
               <button onClick={() => scrollTo('#offers')}
                 className="mt-2 text-rose text-[12px] font-semibold hover:text-rose-dark transition-colors flex items-center gap-1 mx-auto">
                 View Offers <FaArrowRight className="text-[8px]" />

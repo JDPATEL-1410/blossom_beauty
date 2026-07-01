@@ -30,7 +30,7 @@ export default function Contact() {
           <h2 className="font-serif text-[1.4rem] sm:text-3xl md:text-4xl lg:text-5xl font-bold text-dark mb-1.5 sm:mb-3">
             Visit <span className="text-gradient">Us Today</span>
           </h2>
-          <p className="text-dark/40 max-w-sm mx-auto text-[13px] sm:text-[15px]">We'd love to welcome you to our studio.</p>
+          <p className="text-black font-bold max-w-sm mx-auto text-[13px] sm:text-[15px]">We'd love to welcome you to our studio.</p>
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-4 sm:gap-6">
@@ -42,7 +42,7 @@ export default function Contact() {
               </div>
               <div>
                 <h3 className="font-serif text-sm sm:text-base font-bold text-dark mb-0.5">Our Studio</h3>
-                <p className="text-[12px] sm:text-[14px] text-dark/45 leading-relaxed">Unit 9, Bellemay Salon Studios<br />3387 Highway 5 Suite A<br />Douglasville, GA 30135</p>
+                <p className="text-[12px] sm:text-[14px] text-black font-bold leading-relaxed">Unit 9, Bellemay Salon Studios<br />3387 Highway 5 Suite A<br />Douglasville, GA 30135</p>
                 <a href="https://maps.google.com/?q=3387+Highway+5+Suite+A+Douglasville+GA+30135" target="_blank" rel="noopener noreferrer"
                   className="inline-flex items-center gap-1 text-rose text-[12px] sm:text-[14px] font-semibold mt-1 hover:text-rose-dark transition-colors">
                   <FaDirections className="text-[9px] sm:text-[10px]" /> Get Directions
@@ -61,7 +61,7 @@ export default function Contact() {
                     <c.icon className="text-rose text-[10px] sm:text-xs" />
                   </div>
                   <p className="font-serif text-xs sm:text-sm font-bold text-dark mb-0.5">{c.title}</p>
-                  <a href={c.href} className="text-dark/40 text-[11px] sm:text-[13px] hover:text-rose transition-colors break-all leading-tight">{c.val}</a>
+                  <a href={c.href} className="text-black font-bold text-[11px] sm:text-[13px] hover:text-rose transition-colors break-all leading-tight">{c.val}</a>
                 </div>
               ))}
             </div>
@@ -80,8 +80,8 @@ export default function Contact() {
               <div className="grid grid-cols-2 sm:grid-cols-1 gap-1 sm:gap-1.5">
                 {hours.map(h => (
                   <div key={h.day} className="flex justify-between text-[12px] sm:text-[14px] items-center">
-                    <span className="text-dark/45 font-medium">{h.day}</span>
-                    <span className={`font-medium ${h.open ? 'text-dark/60' : 'text-rose text-[10px]'}`}>{h.time}</span>
+                    <span className="text-black font-bold font-medium">{h.day}</span>
+                    <span className={`font-medium ${h.open ? 'text-black font-bold' : 'text-rose text-[10px]'}`}>{h.time}</span>
                   </div>
                 ))}
               </div>

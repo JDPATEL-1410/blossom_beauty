@@ -4,6 +4,7 @@ import { motion, useInView } from 'framer-motion';
 import { useRef, useState, useEffect } from 'react';
 import { FaCertificate, FaPumpSoap, FaSprayCan, FaHandSparkles, FaLeaf, FaGem, FaTrophy, FaUsers, FaConciergeBell, FaStar, FaArrowRight, FaCalendarAlt } from 'react-icons/fa';
 import Image from 'next/image';
+import Link from 'next/link';
 
 function Counter({ target, suffix = '' }: { target: number; suffix?: string }) {
   const [c, setC] = useState(0);
@@ -28,114 +29,132 @@ const features = [
 ];
 
 const stats = [
-  { val: 10, sfx: '+', label: 'Years Exp.', icon: FaTrophy, color: 'from-gold/80 to-gold-light' },
-  { val: 30, sfx: '+', label: 'Services', icon: FaConciergeBell, color: 'from-rose to-accent' },
-  { val: 100, sfx: '%', label: 'Hygienic', icon: FaHandSparkles, color: 'from-accent to-lavender' },
-  { val: 5, sfx: '.0', label: 'Rating', icon: FaStar, color: 'from-gold-light to-rose-gold' },
+  { val: 10, sfx: '+', label: 'Years Exp.', icon: FaTrophy },
+  { val: 30, sfx: '+', label: 'Services', icon: FaConciergeBell },
+  { val: 100, sfx: '%', label: 'Hygienic', icon: FaHandSparkles },
+  { val: 5, sfx: '.0', label: 'Rating', icon: FaStar },
 ];
-
-const go = (id: string) => { const el = document.querySelector(id); if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 70, behavior: 'smooth' }); };
 
 export default function About() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-50px' });
+  const easeCurve = [0.25, 0.46, 0.45, 0.94];
 
   return (
-    <section id="about" className="relative py-12 sm:py-20 md:py-28 overflow-hidden">
-      <div className="section-divider" />
-      <div className="absolute -top-28 -right-28 w-56 sm:w-80 h-56 sm:h-80 rounded-full bg-blush/18 blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-28 -left-28 w-56 sm:w-80 h-56 sm:h-80 rounded-full bg-lavender/10 blur-3xl pointer-events-none" />
-      <Image src="/images/section-flowers.png" alt="" width={208} height={208} className="floral-corner top-0 right-0 w-32 sm:w-52 h-auto opacity-[0.06] rotate-180" />
-
+    <section id="about" className="relative py-20 md:py-32 overflow-hidden bg-white">
       <div ref={ref} className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-6 sm:gap-10 lg:gap-14 items-center">
-          {/* Image */}
-          <motion.div initial={{ opacity: 0, x: -30 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.7 }} className="relative">
-            <div className="relative rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl group">
-              <Image src="/images/about-bg.jpg" alt="Blossom Beauty Room" width={800} height={600} className="w-full h-[240px] sm:h-[340px] md:h-[420px] lg:h-[460px] object-cover transition-transform duration-700 group-hover:scale-[1.03]" />
-              <div className="absolute inset-0 bg-gradient-to-t from-dark/30 via-transparent to-transparent" />
-              <div className="absolute inset-0 bg-gradient-to-r from-rose/5 to-transparent" />
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+          
+          {/* Asymmetrical Image Section */}
+          <motion.div 
+            initial={{ opacity: 0, x: -40 }} 
+            animate={inView ? { opacity: 1, x: 0 } : {}} 
+            transition={{ duration: 1, ease: easeCurve }} 
+            className="lg:col-span-5 relative"
+          >
+            <div className="relative overflow-hidden group border border-primary/10 shadow-2xl">
+              <Image 
+                src="/images/about-bg.jpg" 
+                alt="Blossom Beauty Room" 
+                width={800} 
+                height={1000} 
+                className="w-full h-[400px] sm:h-[500px] md:h-[600px] object-cover transition-transform duration-[2s] ease-out group-hover:scale-[1.05]" 
+              />
+              <div className="absolute inset-0 bg-dark/10 transition-colors duration-1000 group-hover:bg-dark/5" />
             </div>
 
-            {/* Experience badge */}
-            <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={inView ? { opacity: 1, scale: 1 } : {}} transition={{ delay: 0.4, type: 'spring' }}
-              className="absolute -bottom-3 right-1 sm:-bottom-4 sm:right-4 glass-strong rounded-xl px-3 py-2 sm:px-4 sm:py-2.5 shadow-lg animate-gentle-float z-10">
-              <div className="flex items-center gap-2">
-                <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-lg bg-gradient-to-br from-gold to-gold-light flex items-center justify-center">
-                  <FaTrophy className="text-white text-[9px] sm:text-xs" />
-                </div>
+            {/* Experience badge - Sharp Edge */}
+            <motion.div 
+              initial={{ opacity: 0, scale: 0.95 }} 
+              animate={inView ? { opacity: 1, scale: 1 } : {}} 
+              transition={{ delay: 0.6, duration: 0.8, ease: easeCurve }}
+              className="absolute -bottom-6 -right-6 sm:-bottom-8 sm:-right-8 bg-primary p-6 sm:p-8 shadow-xl z-10 hidden sm:block"
+            >
+              <div className="flex items-center gap-4">
+                <FaTrophy className="text-white text-3xl opacity-80" />
                 <div>
-                  <p className="font-serif text-lg sm:text-xl text-rose font-bold leading-none">10+ Years</p>
-                  <p className="text-[9px] sm:text-[11px] text-dark/45 font-medium">Beauty Excellence</p>
+                  <p className="font-serif text-3xl sm:text-4xl text-white font-bold leading-none">10+ Years</p>
+                  <p className="text-[11px] sm:text-[13px] text-white/80 font-sans tracking-widest uppercase mt-1">Beauty Excellence</p>
                 </div>
               </div>
             </motion.div>
-
-            <motion.div initial={{ opacity: 0, scale: 0.8 }} animate={inView ? { opacity: 1, scale: 1 } : {}} transition={{ delay: 0.6, type: 'spring' }}
-              className="absolute -top-2 -left-1 sm:-top-3 sm:-left-3 glass-strong rounded-lg px-2.5 py-1.5 shadow-md animate-gentle-float-alt z-10 hidden sm:flex items-center gap-1.5">
-              <FaUsers className="text-rose text-xs" />
-              <div>
-                <p className="font-serif text-sm text-rose font-bold leading-none">500+</p>
-                <p className="text-[9px] text-dark/40">Happy Clients</p>
-              </div>
-            </motion.div>
-
-            <div className="absolute -top-2 -left-2 sm:-top-3 sm:-left-3 w-10 sm:w-16 h-10 sm:h-16 border-t-2 border-l-2 border-accent/20 rounded-tl-xl sm:rounded-tl-2xl" />
           </motion.div>
 
-          {/* Content */}
-          <motion.div initial={{ opacity: 0, x: 30 }} animate={inView ? { opacity: 1, x: 0 } : {}} transition={{ duration: 0.7, delay: 0.1 }} className="mt-2 lg:mt-0">
-            <span className="inline-flex items-center gap-1.5 bg-gradient-to-r from-blush/50 to-lavender-light/25 text-rose px-2.5 sm:px-3 py-0.5 sm:py-1 rounded-full text-[10px] sm:text-[12px] font-semibold tracking-wider mb-2 sm:mb-3 border border-accent/10">
-              <FaGem className="text-[8px] sm:text-[10px]" /> ABOUT US
+          {/* Minimalist Content Section */}
+          <motion.div 
+            initial={{ opacity: 0, x: 40 }} 
+            animate={inView ? { opacity: 1, x: 0 } : {}} 
+            transition={{ duration: 1, delay: 0.2, ease: easeCurve }} 
+            className="lg:col-span-7 mt-8 lg:mt-0 lg:pl-10"
+          >
+            <span className="font-sans text-[11px] md:text-[13px] text-primary font-bold uppercase tracking-[0.25em] mb-4 block">
+              Our Story
             </span>
-            <h2 className="font-serif text-[1.4rem] sm:text-3xl md:text-4xl lg:text-[2.6rem] font-bold text-dark mb-3 sm:mb-4 leading-[1.15]">
-              Where Beauty <span className="text-gradient">Blossoms</span> Naturally
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-dark mb-8 leading-tight tracking-tight">
+              Where Beauty <br />
+              <span className="font-script text-primary font-normal text-6xl md:text-7xl lg:text-8xl italic">Blossoms</span> Naturally
             </h2>
 
-            <div className="space-y-2.5 sm:space-y-3 text-dark/50 leading-relaxed text-[14px] sm:text-[15px] md:text-[16.5px]">
-              <p>At <strong className="text-dark/70">Blossom Beauty Room</strong>, beauty is more than a service — it's an experience. Located inside Bellemay Salon Studios in Douglasville, we provide personalized beauty treatments in our cozy private room designed to enhance your confidence.</p>
-              <p>Specialist expertise, premium products, and genuine care — every treatment is tailored just for you.</p>
+            <div className="space-y-6 text-black font-bold font-serif text-[16px] md:text-[18px] lg:text-[20px] leading-relaxed max-w-2xl">
+              <p>
+                At Blossom Beauty Room, beauty is more than a service — it's an architectural experience of self-care. Located inside Bellemay Salon Studios, we provide personalized beauty treatments in a sanctuary designed to elevate your confidence.
+              </p>
+              <p>
+                Specialist expertise, premium products, and uncompromising attention to detail. Every treatment is tailored strictly for you.
+              </p>
             </div>
 
-            <div className="mt-4 sm:mt-6 grid grid-cols-2 gap-1.5 sm:gap-2">
+            <div className="mt-12 grid grid-cols-2 gap-y-6 gap-x-4 max-w-2xl">
               {features.map((f, i) => (
-                <motion.div key={f.text} initial={{ opacity: 0, y: 10 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.25 + i * 0.05 }}
-                  className="flex items-center gap-2 py-1 group">
-                  <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-md sm:rounded-lg bg-gradient-to-br from-blush to-accent/15 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
-                    <f.icon className="text-rose text-[10px] sm:text-[12px]" />
-                  </div>
-                  <span className="text-[13px] sm:text-[15px] font-medium text-dark/70 leading-tight">{f.text}</span>
+                <motion.div 
+                  key={f.text} 
+                  initial={{ opacity: 0, y: 15 }} 
+                  animate={inView ? { opacity: 1, y: 0 } : {}} 
+                  transition={{ delay: 0.4 + i * 0.1, duration: 0.6, ease: easeCurve }}
+                  className="flex items-center gap-4 group"
+                >
+                  <f.icon className="text-primary text-[16px] group-hover:scale-110 transition-transform duration-500" />
+                  <span className="text-[14px] sm:text-[15px] font-sans text-black font-bold tracking-wide">{f.text}</span>
                 </motion.div>
               ))}
             </div>
 
-            <motion.div initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ delay: 0.6 }}
-              className="mt-4 sm:mt-6 flex gap-2 sm:gap-3">
-              <button onClick={() => go('#booking')}
-                className="flex-1 sm:flex-none btn-glow bg-gradient-to-r from-rose to-rose-dark text-white px-5 sm:px-7 py-2.5 sm:py-3 rounded-full font-semibold text-[12px] sm:text-sm shadow-md shadow-rose/15 flex items-center justify-center gap-1.5 min-h-[42px]">
-                <FaCalendarAlt className="text-[10px] sm:text-[11px]" /> Book a Visit
-              </button>
-              <button onClick={() => go('#services')}
-                className="flex-1 sm:flex-none btn-rose-outline border border-accent/20 text-rose px-5 sm:px-7 py-2.5 sm:py-3 rounded-full font-semibold text-[12px] sm:text-sm flex items-center justify-center gap-1.5 min-h-[42px]">
-                Services <FaArrowRight className="text-[8px] sm:text-[9px]" />
-              </button>
+            <motion.div 
+              initial={{ opacity: 0 }} 
+              animate={inView ? { opacity: 1 } : {}} 
+              transition={{ delay: 1, duration: 1, ease: easeCurve }}
+              className="mt-14 flex flex-col sm:flex-row gap-4 max-w-md"
+            >
+              <Link href="/contact" className="flex-1 bg-primary text-white text-center py-4 text-[13px] font-bold tracking-[0.2em] uppercase hover:bg-dark transition-colors duration-500">
+                Book a Visit
+              </Link>
+              <Link href="/services" className="flex-1 border border-primary text-primary text-center py-4 text-[13px] font-bold tracking-[0.2em] uppercase hover:bg-primary hover:text-white transition-colors duration-500">
+                Services
+              </Link>
             </motion.div>
           </motion.div>
         </div>
 
         {/* Stats */}
-        <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.4, duration: 0.6 }}
-          className="mt-8 sm:mt-12 grid grid-cols-4 gap-2 sm:gap-3">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }} 
+          animate={inView ? { opacity: 1, y: 0 } : {}} 
+          transition={{ delay: 0.6, duration: 1, ease: easeCurve }}
+          className="mt-24 pt-16 border-t border-primary/10 grid grid-cols-2 md:grid-cols-4 gap-8"
+        >
           {stats.map((s, i) => (
-            <motion.div key={s.label} initial={{ opacity: 0, y: 15 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ delay: 0.5 + i * 0.07 }}
-              className="glass-strong rounded-xl sm:rounded-2xl p-3 sm:p-4 text-center group hover:shadow-lg hover:shadow-rose/6 transition-all duration-300 cursor-default">
-              <div className={`w-8 h-8 sm:w-9 sm:h-9 mx-auto mb-1.5 sm:mb-2 rounded-lg sm:rounded-xl bg-gradient-to-br ${s.color} flex items-center justify-center group-hover:scale-110 transition-transform duration-300`}>
-                <s.icon className="text-white text-[11px] sm:text-[13px]" />
-              </div>
-              <p className="font-serif text-2xl sm:text-3xl md:text-4xl font-bold text-rose leading-none">
+            <motion.div 
+              key={s.label} 
+              initial={{ opacity: 0, y: 20 }} 
+              animate={inView ? { opacity: 1, y: 0 } : {}} 
+              transition={{ delay: 0.7 + i * 0.1, duration: 0.8, ease: easeCurve }}
+              className="text-center group"
+            >
+              <s.icon className="text-primary text-2xl mx-auto mb-4 group-hover:-translate-y-1 transition-transform duration-500" />
+              <p className="font-serif text-4xl sm:text-5xl font-bold text-dark mb-2">
                 <Counter target={s.val} suffix={s.sfx} />
               </p>
-              <p className="text-[10px] sm:text-[12px] text-dark/55 mt-0.5 sm:mt-1 font-semibold uppercase tracking-wider">{s.label}</p>
+              <p className="text-[11px] text-black font-bold font-sans uppercase tracking-[0.25em]">{s.label}</p>
             </motion.div>
           ))}
         </motion.div>

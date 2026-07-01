@@ -1,26 +1,31 @@
 @import "tailwindcss";
 
 @theme {
-  --color-blush: #F8D7E3;
-  --color-blush-light: #FDE8EF;
-  --color-rose: #B76E79;
-  --color-rose-dark: #9A5A64;
-  --color-accent: #E8A4B8;
-  --color-rose-gold: #C88B8B;
-  --color-cream: #FFF8F5;
+  --color-primary: #A9524A;
+  --color-primary-dark: #8C3E32;
+  --color-blush: #F0B4A8;
+  --color-peach: #F0A890;
+  --color-lavender: #B4A0D2;
+  --color-cream: #FDF9F5;
+  --color-text: #241A17;
+  --color-dark: #241A17;
+
+  /* Legacy variable mappings to prevent breaking existing components before refactoring */
+  --color-rose: #A9524A;
+  --color-rose-dark: #8C3E32;
+  --color-accent: #F0B4A8;
+  --color-rose-gold: #F0A890;
   --color-cream-dark: #F5EDE8;
-  --color-dark: #000000;
-  --color-dark-light: #333333;
-  --color-lavender: #CDB4DB;
-  --color-lavender-light: #E8D5F0;
-  --color-gold: #D4A574;
-  --color-gold-light: #E8C9A0;
-  --color-white-warm: #FFFBF8;
-  --color-emerald: #6BAF8D;
+  --color-lavender-light: #CDB4DB;
 
   --font-script: 'Great Vibes', cursive;
   --font-serif: 'Cormorant Garamond', serif;
   --font-sans: 'Montserrat', sans-serif;
+}
+
+/* SHARP EDGE OVERRIDE (except for specific floating petals and logo) */
+*:not(.petal):not(.logo-img) {
+  border-radius: 0 !important;
 }
 
 /* ═══════════════════════════════════════════
@@ -297,6 +302,23 @@ body.menu-open {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
+}
+
+.text-metallic-rose {
+  background: linear-gradient(
+    135deg,
+    #e5a9a1 0%,
+    #c4736b 25%,
+    #8b3a36 45%,
+    #b96058 75%,
+    #e5a9a1 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0px 1px 1px rgba(60, 20, 20, 0.5));
+  animation: text-shimmer 4s linear infinite;
 }
 
 /* ═══════════════════════════════════════════

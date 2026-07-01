@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Great_Vibes, Cormorant_Garamond, Montserrat } from "next/font/google";
 import "./globals.css";
+import ClientLayout from "@/components/ClientLayout";
 
 const greatVibes = Great_Vibes({
   weight: "400",
@@ -51,7 +52,9 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${greatVibes.variable} ${cormorantGaramond.variable} ${montserrat.variable}`}
     >
-      <body className="antialiased">{children}</body>
+      <body className="antialiased">
+        <ClientLayout>{children}</ClientLayout>
+      </body>
     </html>
   );
 }
