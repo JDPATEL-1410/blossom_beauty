@@ -24,7 +24,7 @@ export default function Footer() {
           <p className="text-white/70 font-sans text-sm md:text-base mb-8 max-w-md mx-auto">
             Book your appointment today and let our specialists bring out your natural confidence in a luxurious sanctuary.
           </p>
-          <Link href="/contact"
+          <Link href="/book"
             className="inline-block bg-primary text-white border border-primary px-10 py-4 font-bold text-[12px] uppercase tracking-[0.2em] hover:bg-white hover:text-dark hover:border-white transition-colors duration-500">
             Book Appointment
           </Link>

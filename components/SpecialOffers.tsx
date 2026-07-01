@@ -78,7 +78,7 @@ export default function SpecialOffers() {
                   initial={{ opacity: 0, y: 40 }} animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.8, delay: 0.1 * i, ease: easeCurve }}
                   className="group cursor-pointer border border-primary/20 hover:border-primary transition-colors duration-500 bg-white"
-                  onClick={() => go('#booking')}
+                  onClick={() => window.location.href='/book'}
                 >
                   {/* Background image */}
                   <div className="relative h-[250px] overflow-hidden bg-dark">
@@ -108,7 +108,7 @@ export default function SpecialOffers() {
                     </div>
 
                     <button
-                      onClick={(e) => { e.stopPropagation(); go('#booking'); }}
+                      onClick={(e) => { e.stopPropagation(); window.location.href = '/book'; }}
                       className="w-full bg-transparent border border-black text-black py-4 text-[11px] font-extrabold uppercase tracking-[0.2em] hover:bg-black hover:text-white transition-colors duration-500 flex items-center justify-center gap-2">
                       <FaCalendarAlt className="text-[11px]" /> Book Now
                     </button>

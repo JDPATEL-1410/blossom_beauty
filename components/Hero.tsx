@@ -127,7 +127,7 @@ export default function Hero() {
                         animate={{ opacity: 1, scale: 1 }}
                         transition={{ duration: 1, delay: 1.8, ease: "easeOut" }}
                       >
-                        <a href="/contact" className="inline-block bg-primary text-white border border-primary font-bold text-xs sm:text-sm uppercase tracking-[0.2em] px-8 py-4 hover:bg-transparent hover:border-white transition-all duration-500">
+                        <a href="/book" className="inline-block bg-primary text-white border border-primary font-bold text-xs sm:text-sm uppercase tracking-[0.2em] px-8 py-4 hover:bg-transparent hover:border-white transition-all duration-500">
                           Book Appointment
                         </a>
                       </motion.div>

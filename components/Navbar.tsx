@@ -82,15 +82,14 @@ export default function Navbar() {
             ))}
           </div>
           
-          {/* Action - Right */}
           <div className="hidden lg:flex items-center justify-end w-1/4">
-            <Link href="/contact"
+            <Link href="/book"
               className={`px-8 py-3.5 text-[13px] font-bold uppercase tracking-[0.2em] border transition-all duration-500 ${
                 isHome && !scrolled 
                   ? 'border-white text-white hover:bg-white hover:text-dark' 
                   : 'border-primary text-primary hover:bg-primary hover:text-white'
               }`}>
-              Book Visit
+              Book Now
             </Link>
           </div>
 
@@ -156,7 +155,7 @@ export default function Navbar() {
                 transition={{ delay: 0.8, duration: 0.8, ease: easeCurve }}
                 className="mt-16 text-center"
               >
-                <Link href="/contact" className="inline-block border border-primary text-primary px-12 py-4 text-[12px] font-bold uppercase tracking-[0.25em] hover:bg-primary hover:text-white transition-colors duration-500">
+                <Link href="/book" className="inline-block border border-primary text-primary px-12 py-4 text-[12px] font-bold uppercase tracking-[0.25em] hover:bg-primary hover:text-white transition-colors duration-500">
                   Book Appointment
                 </Link>
               </motion.div>

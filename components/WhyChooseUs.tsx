@@ -65,13 +65,13 @@ export default function WhyChooseUs() {
               <p className="font-script text-lg sm:text-2xl md:text-3xl text-blush mb-0.5 sm:mb-1">Ready to Blossom?</p>
               <p className="text-white/50 text-[11px] sm:text-[13px] md:text-sm max-w-sm">Experience premium beauty care. Your transformation begins here.</p>
             </div>
-            <button onClick={() => go('#booking')}
+            <button onClick={() => window.location.href='/book'}
               className="hidden sm:flex btn-glow bg-gradient-to-r from-rose to-accent text-white px-5 sm:px-7 py-2.5 sm:py-3.5 rounded-full font-semibold text-xs sm:text-sm items-center gap-2 shadow-lg shadow-rose/25 animate-pulse-glow flex-shrink-0">
-              <FaCalendarAlt className="text-[9px] sm:text-xs" /> Book Visit
+              <FaCalendarAlt className="text-[9px] sm:text-xs" /> Book Now
             </button>
           </div>
           {/* Mobile CTA overlay */}
-          <button onClick={() => go('#booking')}
+          <button onClick={() => window.location.href='/book'}
             className="sm:hidden absolute bottom-3 left-1/2 -translate-x-1/2 btn-glow bg-gradient-to-r from-rose to-accent text-white px-5 py-2 rounded-full font-semibold text-[11px] flex items-center gap-1.5 shadow-lg min-h-[36px]">
             <FaCalendarAlt className="text-[8px]" /> Book Now
           </button>

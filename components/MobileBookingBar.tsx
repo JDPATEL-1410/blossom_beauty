@@ -3,10 +3,12 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 import { FaCalendarAlt, FaPhone } from 'react-icons/fa';
 
 export default function MobileBookingBar() {
   const [visible, setVisible] = useState(false);
+  const pathname = usePathname();
 
   useEffect(() => {
     const onScroll = () => setVisible(window.scrollY > 500);
@@ -14,13 +16,15 @@ export default function MobileBookingBar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
+  if (pathname === '/book') return null;
+
   return (
     <AnimatePresence>
       {visible && (
         <motion.div initial={{ y: 100 }} animate={{ y: 0 }} exit={{ y: 100 }} transition={{ type: 'spring', damping: 25, stiffness: 300 }}
           className="fixed bottom-0 left-0 right-0 z-[88] sm:hidden mobile-booking-bar">
           <div className="bg-cream/96 backdrop-blur-xl border-t border-primary/15 px-3 py-2 flex items-center gap-2 shadow-[0_-4px_24px_rgba(169,82,74,0.12)]">
-            <Link href="/contact"
+            <Link href="/book"
               className="flex-1 bg-gradient-to-r from-primary to-primary-dark text-white py-3 font-semibold text-sm flex items-center justify-center gap-2 active:scale-[0.97] transition-transform shadow-md shadow-primary/20">
               <FaCalendarAlt className="text-xs" /> Book Appointment
             </Link>

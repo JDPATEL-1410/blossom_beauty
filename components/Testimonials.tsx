@@ -92,7 +92,7 @@ export default function Testimonials() {
               className="btn-glow flex items-center justify-center gap-2 bg-gradient-to-r from-rose to-rose-dark text-white px-6 py-3 rounded-full font-semibold text-[13px] sm:text-sm shadow-md shadow-rose/20 min-h-[44px]">
               <FaGoogle className="text-xs" /> Leave a Review on Google
             </a>
-            <button onClick={() => scrollTo('#booking')}
+            <button onClick={() => window.location.href='/book'}
               className="btn-rose-outline flex items-center justify-center gap-2 glass text-rose border border-accent/25 px-6 py-3 rounded-full font-semibold text-[13px] sm:text-sm min-h-[44px]">
               <FaCalendarAlt className="text-xs" /> Book Your Visit
             </button>

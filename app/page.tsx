@@ -4,7 +4,6 @@ import Hero from '@/components/Hero';
 import About from '@/components/About';
 import SpecialOffers from '@/components/SpecialOffers';
 import Testimonials from '@/components/Testimonials';
-import Booking from '@/components/Booking';
 
 // We will only import a subset of components for the Home page,
 // as the rest will be moved to their respective routes.
@@ -20,8 +19,6 @@ export default function Home() {
       {/* 3-service teaser */}
       {/* Testimonials */}
       <Testimonials />
-      {/* Booking CTA */}
-      <Booking />
     </>
   );
 }
