@@ -12,7 +12,7 @@ export default function Gallery() {
   const [filter, setFilter] = useState('All');
   const [imgs, setImgs] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const easeCurve = [0.25, 0.46, 0.45, 0.94];
+  const easeCurve: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94];
 
   useEffect(() => {
     const fetchGallery = async () => {

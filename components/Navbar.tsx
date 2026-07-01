@@ -18,7 +18,7 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const pathname = usePathname();
-  const easeCurve = [0.25, 0.46, 0.45, 0.94];
+  const easeCurve: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94];
 
   useEffect(() => {
     const onScroll = () => {

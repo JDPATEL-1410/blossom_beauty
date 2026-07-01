@@ -38,7 +38,7 @@ const stats = [
 export default function About() {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: '-50px' });
-  const easeCurve = [0.25, 0.46, 0.45, 0.94];
+  const easeCurve: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94];
 
   return (
     <section id="about" className="relative py-20 md:py-32 overflow-hidden bg-white">

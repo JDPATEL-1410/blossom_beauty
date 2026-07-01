@@ -22,7 +22,7 @@ export default function SpecialOffers() {
   const inView = useInView(ref, { once: true, margin: '-50px' });
   const [offers, setOffers] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
-  const easeCurve = [0.25, 0.46, 0.45, 0.94];
+  const easeCurve: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94];
 
   useEffect(() => {
     const fetchOffers = async () => {

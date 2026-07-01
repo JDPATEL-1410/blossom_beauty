@@ -110,7 +110,7 @@ export default function Services() {
   const CatIcon = cat.icon;
 
   // Ultra-premium ease curve
-  const easeCurve = [0.25, 0.46, 0.45, 0.94];
+  const easeCurve: [number, number, number, number] = [0.25, 0.46, 0.45, 0.94];
 
   return (
     <section id="services" className="relative py-16 md:py-28 bg-cream overflow-hidden">
